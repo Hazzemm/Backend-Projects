@@ -31,14 +31,20 @@ app.post("/shorten", async (req, res) => {
         }
 
         let url = await Url.findOne({ longUrl });
+        // Don't save the same longUrl again if it exists just return the urls
         if (url) {
             return res.json(await Url.find());
         }
 
-        let shortUrl;
-        do {
-            shortUrl = Math.floor(10000 + Math.random() * 90000).toString();
-        } while (await Url.findOne({ shortUrl })); // Check for uniqueness
+        function genShortUrl() {
+            const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$';
+            let shortenedUrl = '';
+            for (let i = 0; i < 6; i++) {
+              shortenedUrl += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return shortenedUrl;
+        }
+        let shortUrl = genShortUrl();
 
         url = new Url({ longUrl, shortUrl });
         await url.save();
