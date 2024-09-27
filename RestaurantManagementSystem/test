@@ -1,0 +1,31 @@
+{
+    "name": "",
+    "category": "",
+    "price":"",
+    "description":"",
+    "components": [
+        {
+            "componentId": "",
+            "quantity": "",
+            "unit": ""
+        }
+    ]
+}
+----------------------------------------------------------------
+{
+    "itemName":"egg",
+    "quantity":"1000",
+    "unit": "piece",
+    "threshold":"10",
+    "supplier": "Hypermarket"
+}
+----------------------------------------------------------------
+{
+    "tableNumber":1,
+    "orderDetails": [
+        {
+            "menuItemId":"66f2c4c72e82f5e533b26c82",
+            "quantity":2
+        }
+    ]
+}
