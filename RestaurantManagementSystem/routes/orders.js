@@ -2,6 +2,7 @@ const express = require('express');
 const Order = require('../models/Orders')
 const MenuItem = require('../models/MenuItems');
 const Inventory = require('../models/Inventory');
+const {verifyToken} = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/',async (req,res)=>{
@@ -24,7 +25,7 @@ router.get('/',async (req,res)=>{
         });
     }
 });
-router.post('/order', async (req, res) => {
+router.post('/order',verifyToken, async (req, res) => {
     const { tableNumber, orderDetails } = req.body;
     let totalPrice = 0;
 
@@ -84,7 +85,7 @@ router.post('/order', async (req, res) => {
         }});
     }
 });
-router.put('/:id',async (req,res)=>{
+router.put('/:id',verifyToken,async (req,res)=>{
     try{
         const orderId = req.params.id;
         const updatedOrder = await Order.findByIdAndUpdate(orderId,{$set:{...req.body}},{new:true})

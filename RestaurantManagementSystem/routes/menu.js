@@ -1,5 +1,6 @@
 const express = require('express');
 const MenuItem = require('../models/MenuItems');
+const { verifyToken, adminOnly } = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/', async (req,res)=>{
@@ -24,7 +25,7 @@ router.get('/', async (req,res)=>{
         return res.status(400).json({status:"error",data:{message:err.message,details:err}});
     }
 });
-router.post('/', async (req,res)=>{
+router.post('/', verifyToken, adminOnly, async (req,res)=>{
     try {
         const {name,category,price,description,availability,components} = req.body;
         const menuItem = new MenuItem({
@@ -61,7 +62,7 @@ router.post('/', async (req,res)=>{
         return res.status(400).json({status:"error",data:{message:err.message,details:err}});
     }
 });
-router.put('/:id', async (req,res)=>{
+router.put('/:id', verifyToken, adminOnly, async (req,res)=>{
     try {
         const itemId = req.params.id;
         const updatedItem = await MenuItem.findByIdAndUpdate(itemId,{$set:{...req.body}},{new:true})
@@ -81,7 +82,7 @@ router.put('/:id', async (req,res)=>{
         return res.status(400).json({status:"error",data:{message:err.message,details:err}});
     }
 });
-router.delete('/:id', async (req,res)=>{
+router.delete('/:id', verifyToken, adminOnly, async (req,res)=>{
     try {
         const itemId = req.params.id;
         const deletedItem = await MenuItem.findByIdAndDelete(itemId)

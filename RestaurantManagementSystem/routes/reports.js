@@ -1,9 +1,10 @@
 const express = require('express');
 const MenuItem = require('../models/MenuItems')
+const { verifyToken, adminOnly } = require('../middleware/auth');
 const Order = require('../models/Orders')
 const router = express.Router();
 
-router.get('/sales',async (req,res)=>{
+router.get('/sales',verifyToken,adminOnly,async (req,res)=>{
     try {
         const date = req.query.date;
         const startOfDay = new Date(date);
@@ -41,7 +42,7 @@ router.get('/sales',async (req,res)=>{
         });
     }
 });
-router.get('/inventory-consumption', async (req, res) => {
+router.get('/inventory-consumption',verifyToken,adminOnly, async (req, res) => {
     try {
         const date = req.query.date;
         const startOfDay = new Date(date);

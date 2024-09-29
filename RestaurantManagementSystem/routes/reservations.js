@@ -1,5 +1,6 @@
 const express = require('express');
-const Reservation = require('../models/Reservations')
+const Reservation = require('../models/Reservations');
+const { verifyToken } = require('../middleware/auth');
 const router = express.Router();
 
 router.get('/:id',async (req,res)=>{
@@ -13,7 +14,7 @@ router.get('/:id',async (req,res)=>{
         }
     })
 });
-router.post('/',(req,res)=>{
+router.post('/',verifyToken,(req,res)=>{
     try {
         const { customerName, contactInfo, tableNumber, numberOfPeople, reservationDate } = req.body;
         if (!customerName || !contactInfo || !tableNumber || !numberOfPeople || !reservationDate ) {
@@ -49,7 +50,7 @@ router.post('/',(req,res)=>{
         });
     }
 });
-router.put('/:id',async(req,res)=>{
+router.put('/:id',verifyToken,async(req,res)=>{
     try{
         const reservationId = req.params.id;
         const updatedReservation = await Reservation.findByIdAndUpdate(reservationId,{$set:{...req.body}},{new:true})
