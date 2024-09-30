@@ -36,7 +36,7 @@ router.post('/',verifyToken,(req,res)=>{
         return res.json({
             status: 'success',
             data: {
-                message: "Inventory Added Successfully",
+                message: "Reserved Successfully",
                 reservation
             }
         })
@@ -60,7 +60,7 @@ router.put('/:id',verifyToken,async(req,res)=>{
         return res.status(200).json({
             status:"success",
             data:{
-                message:"Menu Item Updated Successfully",
+                message:"Reservation Details Updated Successfully",
                 details:{
                     updatedReservation
                 }
