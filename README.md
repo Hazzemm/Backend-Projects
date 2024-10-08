@@ -1,2 +1,2 @@
 # Backend-Projects
-This repository contains a collection of my backend projects developed using Node.js, Express, and MongoDB. Each project is organized in a separate folder, showcasing different functionalities and implementations, including RESTful APIs, CRUD operations and more Feel free to explore the code and contributions!
+This repository contains a collection of backend projects showcasing my expertise in developing backend applications using Node.js, Express, and MongoDB. Each project demonstrates different aspects of backend development, from CRUD operations to authentication, API development, and real-time features.
